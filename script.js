@@ -40,7 +40,32 @@ const BoardDisplay = (() => {
   const enableCells = () => cells.forEach((cell) => (cell.disabled = false));
   const disableAllCells = () => cells.forEach((cell) => disableCell(cell));
   const changeCursor = () => cells.forEach((cell) => (cell.style.cursor = 'pointer'));
-  return {};
+  const announceWinner = (playerName) => {
+    infoDiv.textContent = `${playerName} won!`;
+    infoDiv.classList.add('win-text');
+  };
+
+  function notifySymbols(p1Symbol, p2Symbol) {
+    const symbolsDiv = document.querySelector('.symbols');
+    symbolsDiv.textContent = `Player 1 = ${p1Symbol}, Player 2 = ${p2Symbol}`;
+  };
+
+  function disableCell(cell) {
+    cell.disabled = true;
+    cell.style.cursor = 'auto';
+  };
+
+  return {
+    notifyTurn,
+    announceTie,
+    resetInfoDiv,
+    clearButtons,
+    enableCells,
+    disableAllCells,
+    changeCursor,
+    announceWinner,
+    notifySymbols
+  };
 })();
 
 // game flow module

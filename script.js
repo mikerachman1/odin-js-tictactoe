@@ -28,8 +28,18 @@ Array.prototype.random = function () {
 
 // board display module
 const BoardDisplay = (() => {
-
-
+  const infoDiv = document.querySelector('.info');
+  const notifyTurn = (playerName) => { infoDiv.textContent = `${playerName}'s turn.` };
+  const announceTie = () => { infoDiv.textContent = "Tied Game" };
+  const resetInfoDiv = () => { infoDiv.classList.remove('win-text') };
+  const cells = document.querySelectorAll('.cell');
+  cells.forEach((cell) => {
+    cell.addEventListener('click', () => Game.playRound(cell))
+  });
+  const clearButtons = () => cells.forEach((cell) => (cell.textContent = ""));
+  const enableCells = () => cells.forEach((cell) => (cell.disabled = false));
+  const disableAllCells = () => cells.forEach((cell) => disableCell(cell));
+  const changeCursor = () => cells.forEach((cell) => (cell.style.cursor = 'pointer'));
   return {};
 })();
 

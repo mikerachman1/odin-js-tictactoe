@@ -1,5 +1,5 @@
 // gameboard module
-const Gameboard = (function () {
+const Gameboard = (() => {
   let boardArray = [];
   const full = () => boardArray.length === 9 && allCellsFull(); 
   const clearBoard = () => boardArray.splice(0, boardArray.length);
@@ -20,3 +20,22 @@ const Gameboard = (function () {
 const Player = (playerName, symbol) => {
   return { playerName, symbol };
 };
+
+// set random() function on Array prototype
+Array.prototype.random = function () {
+  return this[Math.floor(Math.random() * this.length)];
+}
+
+// board display module
+const BoardDisplay = (() => {
+
+
+  return {};
+})();
+
+// game flow module
+const Game = (() => {
+
+
+  return {};
+})();

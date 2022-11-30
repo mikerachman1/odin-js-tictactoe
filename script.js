@@ -15,3 +15,8 @@ const Gameboard = (function () {
   
   return { full, clearBoard, markCell, symbolAt };
 })();
+
+// player factory function
+const Player = (playerName, symbol) => {
+  return { playerName, symbol };
+};

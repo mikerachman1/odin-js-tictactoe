@@ -84,29 +84,28 @@ const Game = (() => {
   let currentPlayer;
 
   const playButton = document.querySelector('.play');
+  playButton.style.display = 'none'
 
-  const nameInputsContainer = document.querySelector('.hidden');
-  const nameForm = document.querySelector('[name="player-form"]');
-
-  nameForm.addEventListener("submit", function(event) {
-    event.preventDefault();
-
-    const player1Name = event.currentTarget.player1.value
-    const player2Name = event.currentTarget.player2.value
-
-    player1.playerName = player1Name
-    player2.playerName = player2Name
-
-    nameInputsContainer.style.display = 'none';
-    BoardDisplay.askClickNewGame();
-  })
-
-  function inputNames () {
+  // iife that runs once on page load to set player names
+  const inputNames = (() => {
+    const nameInputsContainer = document.querySelector('.hidden');
+    const nameForm = document.querySelector('[name="player-form"]');
     BoardDisplay.askInputNames();
     nameInputsContainer.style.display = 'block';
-  }
-
-  inputNames();
+    nameForm.addEventListener("submit", function(event) {
+      event.preventDefault();
+  
+      const player1Name = event.currentTarget.player1.value
+      const player2Name = event.currentTarget.player2.value
+  
+      player1.playerName = player1Name
+      player2.playerName = player2Name
+  
+      nameInputsContainer.style.display = 'none';
+      BoardDisplay.askClickNewGame();
+      playButton.style.display = 'block'
+    })
+  })();
   
   let playing = false;
 
@@ -168,5 +167,5 @@ const Game = (() => {
   }
 
   playButton.addEventListener('click', play);
-  return { playRound, inputNames };
+  return { playRound };
 })();

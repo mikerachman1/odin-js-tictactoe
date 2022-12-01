@@ -76,3 +76,32 @@ h1 {
 .hidden {
   display: none;
 }
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: .4rem;
+}
+
+#player1, #player2 {
+  font-size: 18px;
+}
+
+.player-submit {
+  cursor: pointer;
+  color: #fff;
+  background-color: #F67280;
+  border: 1px solid transparent;
+  padding: 6px 12px;
+  font-size: 16px;
+  border-radius: .25rem;
+  transition: color .15s ease-in-out,
+              background-color .15s ease-in-out,
+              border-color .15s ease-in-out;
+}
+
+.player-submit:hover {
+  color: #fff;
+  background-color: #C06C84;
+  border-color: #C06C84;
+}

@@ -29,6 +29,9 @@ Array.prototype.random = function () {
 // board display module
 const BoardDisplay = (() => {
   const infoDiv = document.querySelector('.info');
+
+  const askInputNames = () => { infoDiv.textContent = 'Please input player names.'};
+  const askClickNewGame = () => { infoDiv.textContent= 'Click New Game!'}
   const notifyTurn = (playerName) => { infoDiv.textContent = `${playerName}'s turn.` };
   const announceTie = () => { infoDiv.textContent = "Tied Game" };
   const resetInfoDiv = () => { infoDiv.classList.remove('win-text') };
@@ -46,9 +49,9 @@ const BoardDisplay = (() => {
   const disableAllCells = () => cells.forEach((cell) => disableCell(cell));
   const changeCursor = () => cells.forEach((cell) => (cell.style.cursor = 'pointer'));
  
-  function notifySymbols(p1Symbol, p2Symbol) {
+  function notifySymbols(p1Symbol, p2Symbol, p1Name, p2Name) {
     const symbolsDiv = document.querySelector('.symbols');
-    symbolsDiv.textContent = `Player 1 = ${p1Symbol}, Player 2 = ${p2Symbol}`;
+    symbolsDiv.textContent = `${p1Name} = ${p1Symbol}, ${p2Name} = ${p2Symbol}`;
   }
 
   function disableCell(cell) {
@@ -66,7 +69,9 @@ const BoardDisplay = (() => {
     changeCursor,
     announceWinner,
     notifySymbols,
-    disableCell
+    disableCell,
+    askInputNames,
+    askClickNewGame
   };
 })();
 
@@ -79,6 +84,29 @@ const Game = (() => {
   let currentPlayer;
 
   const playButton = document.querySelector('.play');
+
+  const nameInputsContainer = document.querySelector('.hidden');
+  const nameForm = document.querySelector('[name="player-form"]');
+
+  nameForm.addEventListener("submit", function(event) {
+    event.preventDefault();
+
+    const player1Name = event.currentTarget.player1.value
+    const player2Name = event.currentTarget.player2.value
+
+    player1.playerName = player1Name
+    player2.playerName = player2Name
+
+    nameInputsContainer.style.display = 'none';
+    BoardDisplay.askClickNewGame();
+  })
+
+  function inputNames () {
+    BoardDisplay.askInputNames();
+    nameInputsContainer.style.display = 'block';
+  }
+
+  inputNames();
   
   let playing = false;
 
@@ -97,7 +125,7 @@ const Game = (() => {
     playing = true;
     currentPlayer = [player1, player2].random();
     resetState();
-    BoardDisplay.notifySymbols(player1.symbol, player2.symbol);
+    BoardDisplay.notifySymbols(player1.symbol, player2.symbol, player1.playerName, player2.playerName);
     BoardDisplay.notifyTurn(currentPlayer.playerName);
     BoardDisplay.changeCursor();
   };
@@ -140,5 +168,5 @@ const Game = (() => {
   }
 
   playButton.addEventListener('click', play);
-  return { playRound };
+  return { playRound, inputNames };
 })();

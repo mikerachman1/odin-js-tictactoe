@@ -65,7 +65,8 @@ const BoardDisplay = (() => {
     disableAllCells,
     changeCursor,
     announceWinner,
-    notifySymbols
+    notifySymbols,
+    disableCell
   };
 })();
 
@@ -138,6 +139,6 @@ const Game = (() => {
     }
   }
 
-  playButton.addEventListener('click', play());
+  playButton.addEventListener('click', play);
   return { playRound };
 })();
